@@ -7,29 +7,29 @@ st.set_page_config(page_title="🎬 Malayalam Movie Finder", page_icon="🎥", l
 # Load data
 @st.cache_data
 def load_data():
-    df = pd.read_csv("Movies_database.csv")
-    return df
+    # Use correct encoding to avoid UnicodeDecodeError
+    return pd.read_csv("Movies_database.csv", encoding='utf-8', engine='python')
 
 movies = load_data()
 
-st.title("🎬 Malayalam Movie Finder")
-st.markdown("Select a genre to see all Malayalam movies in that category, along with details! 🍿")
-
-# Define the fixed list of your famous genres
+# Define your fixed list of genres
 allowed_genres = ['Drama', 'Comedy', 'Romance', 'Thriller', 'Action', 'Crime', 'Mystery']
 
-# Filter genres that actually exist in data
+# Filter genres that actually exist in your data
 available_genres = sorted([genre for genre in allowed_genres if genre in movies['Genre'].unique()])
 
-# Genre dropdown
+# App title
+st.title("🎬 Malayalam Movie Finder")
+
+# Show dropdown in main area (not sidebar)
 selected_genre = st.selectbox("Choose a genre:", available_genres)
 
-# Filter movies by genre
+# Filter movies by selected genre
 filtered = movies[movies['Genre'] == selected_genre]
 
+# Display movies
 if not filtered.empty:
-    st.subheader(f"Movies in genre: {selected_genre}")
-    for index, movie in filtered.iterrows():
+    for _, movie in filtered.iterrows():
         st.markdown(f"### 🎥 {movie['Title']} ({movie['Year']})")
         st.write(f"⭐ **IMDb Rating:** {movie['IMDb Rating']}")
         st.write(f"📝 **Description:** {movie['Short Description']}")
@@ -37,4 +37,3 @@ if not filtered.empty:
 else:
     st.warning("No movies found in this genre!")
 
-st.markdown("✅ *Built with Streamlit*")
