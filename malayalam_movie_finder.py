@@ -39,9 +39,6 @@ available_genres = sorted([genre for genre in allowed_genres if genre in movies[
 st.sidebar.header("🍿 Filter")
 selected_genre = st.sidebar.selectbox("Choose a genre:", available_genres)
 
-# ✅ Add the main title here:
-st.title("🎬 Malayalam Movie Finder")
-
 # Banner image (with new parameter)
 st.image("banner.jpg", use_container_width=True)
 
