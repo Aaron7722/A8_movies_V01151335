@@ -61,7 +61,6 @@ st.markdown("""
 
 Do enjoy... and see you at the movies! 🎬🤩🌟
 """)
-
 # Banner image (with new parameter)
 st.image("banner.jpg", use_container_width=True)
 
