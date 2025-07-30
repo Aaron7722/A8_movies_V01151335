@@ -36,4 +36,3 @@ if not filtered.empty:
 else:
     st.warning("No movies found in this genre!")
 
-st.markdown("✅ *Built with Streamlit*")
