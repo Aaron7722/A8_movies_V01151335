@@ -11,18 +11,15 @@ def load_data():
 
 movies = load_data()
 
-# Define your fixed list of genres
+# Define fixed list of genres
 allowed_genres = ['Drama', 'Comedy', 'Romance', 'Thriller', 'Action', 'Crime', 'Mystery']
 available_genres = sorted([genre for genre in allowed_genres if genre in movies['Genre'].unique()])
 
-# Sidebar: genre filter
+# Sidebar: genre dropdown
 st.sidebar.header("🍿 Filter")
 selected_genre = st.sidebar.selectbox("Choose a genre:", available_genres)
 
-# Main area: show banner image at the top
-st.image("banner.jpg", use_column_width=True)
-
-# Quirky intro text
+# Main page: intro text and image
 st.markdown("""
 🍿🎥 **Movies are a great deal in our day-to-day lives — *especially* for Keralites! 🇮🇳❤️**
 
@@ -35,10 +32,13 @@ st.markdown("""
 Do enjoy... and see you at the movies! 🎬🤩🌟
 """)
 
-# Filter movies
+# Banner image (with new parameter)
+st.image("banner.jpg", use_container_width=True)
+
+# Filter movies by genre
 filtered = movies[movies['Genre'] == selected_genre]
 
-# Show movies
+# Show movies below the intro and image
 if not filtered.empty:
     st.subheader(f"Movies in genre: {selected_genre}")
     for _, movie in filtered.iterrows():
@@ -47,6 +47,5 @@ if not filtered.empty:
         st.write(f"📝 **Description:** {movie['Short Description']}")
         st.markdown("---")
 else:
-    st.warning("No movies found in this genre!")
+    st.info("Please select a genre from the sidebar to see suggestions!")
 
-st.markdown("✅ *Built with Streamlit*")
