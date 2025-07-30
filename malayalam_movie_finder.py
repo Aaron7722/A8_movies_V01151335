@@ -18,6 +18,39 @@ available_genres = sorted([genre for genre in allowed_genres if genre in movies[
 # Sidebar: genre dropdown
 st.sidebar.header("🍿 Filter")
 selected_genre = st.sidebar.selectbox("Choose a genre:", available_genres)
+import streamlit as st
+import pandas as pd
+
+# Page config
+st.set_page_config(page_title="🎬 Malayalam Movie Finder", page_icon="🎥", layout="centered")
+
+# Load data
+@st.cache_data
+def load_data():
+    return pd.read_csv("Movies_database.csv", encoding='utf-8', engine='python')
+
+movies = load_data()
+
+# Define fixed list of genres
+allowed_genres = ['Drama', 'Comedy', 'Romance', 'Thriller', 'Action', 'Crime', 'Mystery']
+available_genres = sorted([genre for genre in allowed_genres if genre in movies['Genre'].unique()])
+
+# Sidebar: genre dropdown
+st.sidebar.header("🍿 Filter")
+selected_genre = st.sidebar.selectbox("Choose a genre:", available_genres)
+
+# ✅ Add the main title here:
+st.title("🎬 Malayalam Movie Finder")
+
+# Banner image (with new parameter)
+st.image("banner.jpg", use_container_width=True)
+
+# Quirky intro text
+st.markdown("""
+🍿🎥 **Movies are a great deal in our day-to-day lives — *especially* for Keralites! 🇮🇳❤️**
+
+😅 But let’s be honest: it’s often super hard to get good suggestions for hidden gems or evergreen class
+
 
 # Main page: intro text and image
 st.markdown("""
