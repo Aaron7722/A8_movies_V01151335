@@ -17,36 +17,19 @@ available_genres = sorted([genre for genre in allowed_genres if genre in movies[
 
 # Sidebar: genre dropdown
 st.sidebar.header("🍿 Filter")
-selected_genre = st.sidebar.selectbox("Choose a genre:", available_genres)
-import streamlit as st
-import pandas as pd
+selected_genre = st.sidebar.selectbox("🎞️ Choose a genre:", available_genres)
 
-# Page config
-st.set_page_config(page_title="🎬 Malayalam Movie Finder", page_icon="🎥", layout="centered")
+# Main page: title
+st.title("🎬 Malayalam Movie Finder")
 
-# Load data
-@st.cache_data
-def load_data():
-    return pd.read_csv("Movies_database.csv", encoding='utf-8', engine='python')
-
-movies = load_data()
-
-# Define fixed list of genres
-allowed_genres = ['Drama', 'Comedy', 'Romance', 'Thriller', 'Action', 'Crime', 'Mystery']
-available_genres = sorted([genre for genre in allowed_genres if genre in movies['Genre'].unique()])
-
-# Sidebar: genre dropdown
-st.sidebar.header("🍿 Filter")
-selected_genre = st.sidebar.selectbox("Choose a genre:", available_genres)
-
-# Banner image (with new parameter)
+# Banner image
 st.image("banner.jpg", use_container_width=True)
 
-# Quirky intro text
+# Intro text
 st.markdown("""
 🍿🎥 **Movies are a great deal in our day-to-day lives — *especially* for Keralites! 🇮🇳❤️**
 
-😅 But let’s be honest: it’s often super hard to get good suggestions for hidden gems or evergreen class
+😅 But let’s be honest: it’s often super hard to get good suggestions for hidden gems or evergreen classics.
 
 ✨ So here’s a **fun little app** that suggests Malayalam movies based on your favorite genre! 🎞️👇
 
@@ -54,13 +37,11 @@ st.markdown("""
 
 Do enjoy... and see you at the movies! 🎬🤩🌟
 """)
-# Banner image (with new parameter)
-st.image("banner.jpg", use_container_width=True)
 
-# Filter movies by genre
+# Filter movies
 filtered = movies[movies['Genre'] == selected_genre]
 
-# Show movies below the intro and image
+# Show movies
 if not filtered.empty:
     st.subheader(f"Movies in genre: {selected_genre}")
     for _, movie in filtered.iterrows():
@@ -70,4 +51,3 @@ if not filtered.empty:
         st.markdown("---")
 else:
     st.info("Please select a genre from the sidebar to see suggestions!")
-
