@@ -11,27 +11,29 @@ def load_data():
 
 movies = load_data()
 
-# Define fixed list of genres
+# Define your fixed list of genres
 allowed_genres = ['Drama', 'Comedy', 'Romance', 'Thriller', 'Action', 'Crime', 'Mystery']
 available_genres = sorted([genre for genre in allowed_genres if genre in movies['Genre'].unique()])
 
-# App title
-st.title("🎬 Malayalam Movie Finder")
+# Sidebar: genre filter
+st.sidebar.header("🍿 Filter")
+selected_genre = st.sidebar.selectbox("Choose a genre:", available_genres)
+
+# Main area: show banner image at the top
+st.image("banner.jpg", use_column_width=True)
+
+# Quirky intro text
 st.markdown("""
-🍿🎥 **Movies are a great deal in our day-to-day lives — *especially* for Keralites! 🇮🇳❤️**  
+🍿🎥 **Movies are a great deal in our day-to-day lives — *especially* for Keralites! 🇮🇳❤️**
 
-😅 But let’s be honest: it’s often super hard to get good suggestions for hidden gems or evergreen classics.  
+😅 But let’s be honest: it’s often super hard to get good suggestions for hidden gems or evergreen classics.
 
-✨ So here’s a **fun little app** that suggests Malayalam movies based on your favorite genre! 🎞️👇  
+✨ So here’s a **fun little app** that suggests Malayalam movies based on your favorite genre! 🎞️👇
 
-✅ **Pick a genre → get a list of movies with ratings & descriptions.**  
+✅ **Pick a genre → get a list of movies with ratings & descriptions.**
 
 Do enjoy... and see you at the movies! 🎬🤩🌟
 """)
-
-# Sidebar
-st.sidebar.header("Filter")
-selected_genre = st.sidebar.selectbox("Choose a genre:", available_genres)
 
 # Filter movies
 filtered = movies[movies['Genre'] == selected_genre]
@@ -47,3 +49,4 @@ if not filtered.empty:
 else:
     st.warning("No movies found in this genre!")
 
+st.markdown("✅ *Built with Streamlit*")
